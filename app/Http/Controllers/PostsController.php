@@ -132,29 +132,26 @@ class PostsController extends Controller
 
         //Update post
         $post = Post::find($id);
-        $post->title = $request->input('title');
-        $post->body = $request->input('body');
-        if($request->hasFile('cover_image')){
-             //delete previous image
-             Storage::delete('public/cover_images/'.$post->cover_image);
-             //Get File Name with the Extension
-             $filenameWithExt = $request->file('cover_image')->getClientOriginalName();
-             //Get just File name
-             $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
-             //Get just Ext
-             $extension = $request->file('cover_image')->getClientOriginalExtension();
-             //Filename to store
-             $fileNameToStore = $filename.'_'.time().'.'.$extension;
 
-             $post->cover_image = $fileNameToStore;
-
-             //Upload Image
-             $path = $request->file('cover_image')->storeAs('public/cover_images',$fileNameToStore);
-
-        }else{
-            $fileNameToStore = 'noimage.jpg';
+        if($request->hasFile('cover_image')){           
+            //Get File Name with the Extension
+            $filenameWithExt = $request->file('cover_image')->getClientOriginalName();
+            //Get just File name
+            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+            //Get just Ext
+            $extension = $request->file('cover_image')->getClientOriginalExtension();
+            //Filename to store
+            $fileNameToStore = $filename.'_'.time().'.'.$extension;         
+            //Upload Image
+            $path = $request->file('cover_image')->storeAs('public/cover_images',$fileNameToStore);  
+            
+            $post->title = $request->input('title');
+            $post->body = $request->input('body');        
+            $post->cover_image = $fileNameToStore;        
+            $post->save();
         }
-        $post->save();
+
+        
         
         return redirect('/posts')->with('success','Post Updated');
     }
