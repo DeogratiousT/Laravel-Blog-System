@@ -128,11 +128,6 @@ class PostsController extends Controller
 
         ]);
 
-    
-
-        //Update post
-        $post = Post::find($id);
-
         if($request->hasFile('cover_image')){           
             //Get File Name with the Extension
             $filenameWithExt = $request->file('cover_image')->getClientOriginalName();
