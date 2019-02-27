@@ -126,6 +126,7 @@ class PostsController extends Controller
             'title' => 'required',
             'body' => 'required'
 
+
         ]);
 
         if($request->hasFile('cover_image')){           
@@ -139,13 +140,21 @@ class PostsController extends Controller
             $fileNameToStore = $filename.'_'.time().'.'.$extension;         
             //Upload Image
             $path = $request->file('cover_image')->storeAs('public/cover_images',$fileNameToStore);  
-            
-            $post->title = $request->input('title');
-            $post->body = $request->input('body');        
-            $post->cover_image = $fileNameToStore;        
-            $post->save();
         }
 
+        
+        //Update post
+        $post = Post::find($id);
+        $post->title = $request->input('title');
+        $post->body = $request->input('body');
+        if($request->hasFile('cover_image')){
+            //delete first image
+            if($post->cover_image != 'noimage.jpg'){
+                Storage::delete('public/cover_images/'.$post->cover_image);
+            }          
+            $post->cover_image = $fileNameToStore;  
+        }   
+        $post->save();
         
         
         return redirect('/posts')->with('success','Post Updated');
