@@ -10686,11 +10686,70 @@ a.text-dark:focus {
 }
 
 .dropdown-item:hover {
-  color: #337ab7 !important;
+  color: #008080 !important;
 }
 
 .nav-link:hover {
-  color: #fff !important;
+  color: #008080 !important;
+}
+
+.fixed {
+  clear: both;
+  overflow: hidden;
+  background-color: #e9ecef;
+}
+
+.navul {
+  padding-top: 50px;
+  width: 70%;
+  float: left;
+}
+
+.navli {
+  text-decoration: none;
+  display: inline;
+  padding-right: 25px;
+  font-size: 20px;
+}
+
+.navulright {
+  float: left;
+  padding-top: 50px;
+}
+
+.navliright {
+  text-decoration: none;
+  display: inline;
+  padding-right: 25px;
+  font-size: 20px;
+}
+
+h1 {
+  font-family: Curlz MT;
+  font-size: 70px;
+  color: #000000;
+}
+
+p {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 30px;
+  color: #008080;
+}
+
+.navuldropdown {
+  list-style: none;
+  margin: 0px;
+  padding: 0px;
+}
+
+.navuldropdownli {
+  text-decoration: none;
+  display: none;
+}
+
+.navliright:hover ul li {
+  display: block;
+  padding-left: 20px;
 }
 
 .navbar-laravel {
